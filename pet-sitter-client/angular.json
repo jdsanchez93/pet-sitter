@@ -65,7 +65,8 @@
               "buildTarget": "pet-sitter-client:build:production"
             },
             "development": {
-              "buildTarget": "pet-sitter-client:build:development"
+              "buildTarget": "pet-sitter-client:build:development",
+              "proxyConfig": "src/proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"
