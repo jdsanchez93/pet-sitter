@@ -11,6 +11,13 @@ namespace pet_sitter_api
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> dbContextOptions) : base(dbContextOptions)
         {
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Note>()
+                .HasMany(e => e.Photos)
+                .WithMany("Notes");
+        }
     }
 
 }
