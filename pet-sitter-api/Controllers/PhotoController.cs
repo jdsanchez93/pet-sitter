@@ -6,13 +6,13 @@ namespace pet_sitter_api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class NoteController : ControllerBase
+public class PhotoController : ControllerBase
 {
-    private readonly ILogger<NoteController> _logger;
+    private readonly ILogger<PhotoController> _logger;
     private readonly IConfiguration _configuration;
     private readonly ApplicationDbContext _context;
 
-    public NoteController(ILogger<NoteController> logger, IConfiguration configuration, ApplicationDbContext context)
+    public PhotoController(ILogger<PhotoController> logger, IConfiguration configuration, ApplicationDbContext context)
     {
         _logger = logger;
         _configuration = configuration;
@@ -24,49 +24,49 @@ public class NoteController : ControllerBase
     {
         try
         {
-            var note = _context.Notes.FirstOrDefault(n => n.NoteId == id);
-            if (note == null)
+            var photo = _context.Photos.FirstOrDefault(n => n.PhotoId == id);
+            if (photo == null)
             {
                 return NotFound();
             }
 
-            return Ok(note);
+            return Ok(photo);
         }
         catch (Exception e)
         {
-            _logger.LogError(e, "GetNotes");
+            _logger.LogError(e, "GetById");
             return StatusCode(StatusCodes.Status500InternalServerError);
         }
     }
 
-    [HttpGet("GetNotes")]
-    public async Task<IActionResult> GetNotes()
+    [HttpGet("GetPhotos")]
+    public async Task<IActionResult> GetPhotos()
     {
         try
         {
-            var history = await _context.Notes
+            var history = await _context.Photos
                 .Take(10).ToListAsync();
             return Ok(history);
         }
         catch (Exception e)
         {
-            _logger.LogError(e, "GetNotes");
+            _logger.LogError(e, "GetPhotos");
             return StatusCode(StatusCodes.Status500InternalServerError);
         }
     }
 
-    [HttpPost(Name = "PostNote")]
-    public IActionResult PostNote([FromBody] Note note)
+    [HttpPost(Name = "PostPhoto")]
+    public IActionResult PostPhoto([FromBody] Photo Photo)
     {
         try
         {
-            _context.Notes.Add(note);
+            _context.Photos.Add(Photo);
             _context.SaveChanges();
-            return Ok(note);
+            return Ok(Photo);
         }
         catch (Exception e)
         {
-            _logger.LogError(e, "GetNotes");
+            _logger.LogError(e, "GetPhotos");
             return StatusCode(StatusCodes.Status500InternalServerError);
         }
     }
