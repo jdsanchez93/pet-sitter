@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { NoteComponent } from "../note/note.component";
+import { AddNoteComponent } from "../add-note/add-note.component";
 
 @Component({
     selector: 'app-navigation',
@@ -22,7 +23,8 @@ import { NoteComponent } from "../note/note.component";
         MatListModule,
         MatIconModule,
         AsyncPipe,
-        NoteComponent
+        NoteComponent,
+        AddNoteComponent
     ]
 })
 export class NavigationComponent {
