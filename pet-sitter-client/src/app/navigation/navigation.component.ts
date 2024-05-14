@@ -8,8 +8,6 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { AddNoteComponent } from "../add-note/add-note.component";
-import { SingleNoteComponent } from '../single-note/single-note.component';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
@@ -24,9 +22,7 @@ import { RouterOutlet } from '@angular/router';
     MatSidenavModule,
     MatListModule,
     MatIconModule,
-    AsyncPipe,
-    SingleNoteComponent,
-    AddNoteComponent
+    AsyncPipe
   ]
 })
 export class NavigationComponent {

@@ -1,8 +1,8 @@
 import { Component, Input, OnInit, input } from '@angular/core';
-import { Note } from '../../models';
+import { Note } from '../../../models';
 import { NoteService } from '../note.service';
 import { of, switchMap, tap } from 'rxjs';
-import { NoteCardComponent } from '../note/note-card/note-card.component';
+import { NoteCardComponent } from '../note-card/note-card.component';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
 @Component({

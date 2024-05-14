@@ -3,7 +3,7 @@ import { AbstractControlOptions, FormBuilder, FormControl, FormGroup, NonNullabl
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { NoteService } from '../note.service';
-import { Note } from '../../models';
+import { Note } from '../../../models';
 
 @Component({
   selector: 'app-add-note',
