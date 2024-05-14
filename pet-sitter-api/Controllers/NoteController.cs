@@ -5,7 +5,7 @@ using pet_sitter_api.Entities;
 namespace pet_sitter_api.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class NoteController : ControllerBase
 {
     private readonly ILogger<NoteController> _logger;
