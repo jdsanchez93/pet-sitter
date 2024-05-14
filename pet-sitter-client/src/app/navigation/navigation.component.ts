@@ -10,22 +10,24 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { AddNoteComponent } from "../add-note/add-note.component";
 import { SingleNoteComponent } from '../single-note/single-note.component';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
-    selector: 'app-navigation',
-    templateUrl: './navigation.component.html',
-    styleUrl: './navigation.component.scss',
-    standalone: true,
-    imports: [
-        MatToolbarModule,
-        MatButtonModule,
-        MatSidenavModule,
-        MatListModule,
-        MatIconModule,
-        AsyncPipe,
-        SingleNoteComponent,
-        AddNoteComponent
-    ]
+  selector: 'app-navigation',
+  templateUrl: './navigation.component.html',
+  styleUrl: './navigation.component.scss',
+  standalone: true,
+  imports: [
+    RouterOutlet,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatListModule,
+    MatIconModule,
+    AsyncPipe,
+    SingleNoteComponent,
+    AddNoteComponent
+  ]
 })
 export class NavigationComponent {
   private breakpointObserver = inject(BreakpointObserver);
