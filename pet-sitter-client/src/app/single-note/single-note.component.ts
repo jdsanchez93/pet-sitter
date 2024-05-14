@@ -2,13 +2,13 @@ import { Component, Input, OnInit, input } from '@angular/core';
 import { Note } from '../../models';
 import { NoteService } from '../note.service';
 import { of, switchMap, tap } from 'rxjs';
-import { NoteComponent } from '../note/note.component';
+import { NoteCardComponent } from '../note/note-card/note-card.component';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
 @Component({
   selector: 'app-single-note',
   standalone: true,
-  imports: [NoteComponent],
+  imports: [NoteCardComponent],
   templateUrl: './single-note.component.html',
   styleUrl: './single-note.component.scss'
 })
