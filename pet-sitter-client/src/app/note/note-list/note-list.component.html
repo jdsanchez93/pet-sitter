@@ -1,0 +1,10 @@
+<mat-nav-list>
+    @for (note of notes; track note.noteId) {
+    <a mat-list-item [routerLink]="['/note', note.noteId]">
+        <span matListItemTitle>{{note.title}}</span>
+        <span matListItemLine>{{note.description}}</span>
+    </a>
+    } @empty {
+        <mat-list-item>Notes note found</mat-list-item>
+    }
+</mat-nav-list>
