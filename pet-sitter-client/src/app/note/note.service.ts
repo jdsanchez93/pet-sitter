@@ -17,5 +17,9 @@ export class NoteService {
   public createNote(noteData: Partial<Note>) {
     return this.http.post('api/Note', noteData);
   }
+
+  public getNotes(): Observable<Note[]> {
+    return this.http.get<Note[]>('api/Note/GetNotes');
+  }
 }
 
