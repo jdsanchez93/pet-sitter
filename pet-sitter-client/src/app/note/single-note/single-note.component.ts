@@ -1,9 +1,9 @@
-import { Component, Input, OnInit, input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Note } from '../../../models';
 import { NoteService } from '../note.service';
-import { of, switchMap, tap } from 'rxjs';
+import { switchMap, tap } from 'rxjs';
 import { NoteCardComponent } from '../note-card/note-card.component';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-single-note',
@@ -26,7 +26,6 @@ export class SingleNoteComponent implements OnInit {
       .pipe(
         switchMap((params: ParamMap) => {
           var noteId = Number(params.get('id'));
-          console.log('noteid', noteId)
           return this.noteService.getNote(noteId);
         }),
         tap(x => this.note = x)
