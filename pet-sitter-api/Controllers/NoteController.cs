@@ -45,6 +45,7 @@ public class NoteController : ControllerBase
         try
         {
             var history = await _context.Notes
+                .OrderByDescending(x => x.NoteDate)
                 .Take(10).ToListAsync();
             return Ok(history);
         }
