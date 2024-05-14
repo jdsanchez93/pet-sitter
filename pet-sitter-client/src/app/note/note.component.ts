@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { NoteService } from '../note.service';
-import { Observable, tap } from 'rxjs';
+import { Component, Input, OnInit } from '@angular/core';
 import { Note } from '../../models';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+
 @Component({
   selector: 'app-note',
   standalone: true,
@@ -11,23 +10,8 @@ import { MatButtonModule } from '@angular/material/button';
   templateUrl: './note.component.html',
   styleUrl: './note.component.scss'
 })
-export class NoteComponent implements OnInit {
+export class NoteComponent {
 
-  note: Note = {
-    noteId: 0,
-    title: 'Shotzi',
-    description: 'Ate 4 bowls of food',
-    photos: []
-  };
-
-  constructor(private noteService: NoteService) { }
-
-  ngOnInit(): void {
-    this.noteService.getNote(1)
-      .pipe(
-        tap(x => this.note = x)
-      )
-      .subscribe();
-  }
+  @Input({ required: true }) note!: Note
 
 }

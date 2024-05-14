@@ -4,7 +4,7 @@
         <mat-card-title>{{note.title}}</mat-card-title>
     </mat-card-header>
 
-    @if (note && note.photos.length > 0) {
+    @if (note.photos.length > 0) {
     <img mat-card-image [src]="note.photos[0].s3Key" alt="Photo for note">
     }
     @else {

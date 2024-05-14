@@ -8,8 +8,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { NoteComponent } from "../note/note.component";
 import { AddNoteComponent } from "../add-note/add-note.component";
+import { SingleNoteComponent } from '../single-note/single-note.component';
 
 @Component({
     selector: 'app-navigation',
@@ -23,7 +23,7 @@ import { AddNoteComponent } from "../add-note/add-note.component";
         MatListModule,
         MatIconModule,
         AsyncPipe,
-        NoteComponent,
+        SingleNoteComponent,
         AddNoteComponent
     ]
 })
