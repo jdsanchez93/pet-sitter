@@ -40,29 +40,29 @@ jobs:
         VERSION: "${{ github.event_name == 'push' && steps.version.outputs.version || format('{0}-prerelease.{1}', steps.version.outputs.version, steps.version.outputs.increment) }}"
         VERSION_TAG: "${{ github.event_name == 'push' && steps.version.outputs.version_tag || '' }}"
 
-    # - name: Configure AWS credentials
-    #   if: ${{ github.event_name == 'push' }}
-    #   uses: aws-actions/configure-aws-credentials@v4
-    #   with:
-    #     role-to-assume: arn:aws:iam::515964707541:role/github-oidc-idp-role
-    #     aws-region: us-east-2
+    - name: Configure AWS credentials
+      if: ${{ github.event_name == 'push' }}
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: arn:aws:iam::515964707541:role/github-oidc-idp-role
+        aws-region: us-east-2
 
-    # - name: Fill in the new image ID in the Amazon ECS task definition
-    #   if: ${{ github.event_name == 'push' }}
-    #   id: task-def
-    #   uses: aws-actions/amazon-ecs-render-task-definition@v1
-    #   with:
-    #     task-definition: ${{ github.workspace }}/.github/workflows/task-definition.json
-    #     container-name: pet-sitter
-    #     image: ${{ steps.build-image.outputs.image }}
+    - name: Fill in the new image ID in the Amazon ECS task definition
+      if: ${{ github.event_name == 'push' }}
+      id: task-def
+      uses: aws-actions/amazon-ecs-render-task-definition@v1
+      with:
+        task-definition: ${{ github.workspace }}/.github/workflows/task-definition.json
+        container-name: pet-sitter
+        image: ${{ steps.build-image.outputs.image }}
 
-    # - name: Deploy Amazon ECS task definition
-    #   if: ${{ github.event_name == 'push' }}
-    #   uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-    #   with:
-    #     task-definition: ${{ steps.task-def.outputs.task-definition }}
-    #     service: pet-sitter
-    #     cluster: ProjectsProd
-    #     wait-for-service-stability: true
-    #     wait-for-minutes: 10
-    #     force-new-deployment: true
+    - name: Deploy Amazon ECS task definition
+      if: ${{ github.event_name == 'push' }}
+      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+      with:
+        task-definition: ${{ steps.task-def.outputs.task-definition }}
+        service: pet-sitter
+        cluster: ProjectsProd
+        wait-for-service-stability: true
+        wait-for-minutes: 10
+        force-new-deployment: true
