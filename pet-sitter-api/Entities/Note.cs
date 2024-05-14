@@ -11,5 +11,7 @@ public class Note
 
     public string? Description { get; set; }
 
+    public DateTime? NoteDate { get; set; }
+
     public List<Photo> Photos { get; set; } = new List<Photo>();
 }

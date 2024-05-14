@@ -60,6 +60,7 @@ public class NoteController : ControllerBase
     {
         try
         {
+            note.NoteDate = DateTime.UtcNow;
             _context.Notes.Add(note);
             _context.SaveChanges();
             return Ok(note);

@@ -2,6 +2,7 @@ export interface Note {
     noteId: number;
     title: string;
     description: string;
+    noteDate: Date;
     photos: Photo[];
 }
 
