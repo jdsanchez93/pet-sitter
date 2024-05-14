@@ -27,5 +27,6 @@ export class AddNoteComponent {
 
   onSubmit() {
     this.noteService.createNote(this.noteForm.value)
+      .subscribe();
   }
 }
