@@ -7,10 +7,10 @@ RUN npm run build
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ./pet-sitter-api/webcam-image-viewer.csproj .
+COPY ./pet-sitter-api/pet-sitter-api.csproj .
 RUN dotnet restore
 COPY ./pet-sitter-api .
-COPY --from=clientbuild /usr/local/app/dist/pet-sitter-client ./wwwroot
+COPY --from=clientbuild /usr/local/app/dist/pet-sitter-client/browser ./wwwroot
 RUN dotnet publish -c release -o /app
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0

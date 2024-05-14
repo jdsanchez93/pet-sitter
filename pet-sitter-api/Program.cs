@@ -30,8 +30,12 @@ using (var scope = app.Services.CreateScope())
     db.Database.Migrate();
 }
 
+app.UseStaticFiles();
+
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapFallbackToFile("index.html");
 
 app.Run();
