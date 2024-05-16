@@ -1,0 +1,6 @@
+<div>
+    <button mat-button (click)="fileInput.click()" type="button">Choose File</button>
+    <input hidden #fileInput type="file" id="file" (change)="handleFileInput($event)">
+</div>
+
+<img [src]="this.preview" class="image-container">
