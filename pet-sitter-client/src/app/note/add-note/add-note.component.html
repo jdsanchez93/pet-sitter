@@ -1,16 +1,27 @@
 <form class="example-form" [formGroup]="noteForm" (ngSubmit)="onSubmit()">
-    <mat-form-field class="example-full-width">
-        <mat-label>Title</mat-label>
-        <input matInput formControlName="title">
-    </mat-form-field>
 
-    <mat-form-field class="example-full-width">
-        <mat-label>Description</mat-label>
-        <textarea matInput formControlName="description"></textarea>
-    </mat-form-field>
+    <mat-card class="form-card">
+        <mat-card-header>
+            <mat-card-title>Create Note</mat-card-title>
+        </mat-card-header>
 
-    <app-image-upload class="example-full-width"></app-image-upload>
+        <mat-card-content>
+            <mat-form-field class="example-full-width">
+                <mat-label>Title</mat-label>
+                <input matInput formControlName="title">
+            </mat-form-field>
 
-    <button mat-raised-button color="primary" type="submit" [disabled]="!noteForm.valid">Create</button>
+            <mat-form-field class="example-full-width">
+                <mat-label>Description</mat-label>
+                <textarea matInput formControlName="description"></textarea>
+            </mat-form-field>
 
+            <app-image-upload class="example-full-width"></app-image-upload>
+
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button color="primary" type="submit" [disabled]="!noteForm.valid">Create</button>
+        </mat-card-actions>
+
+    </mat-card>
 </form>
