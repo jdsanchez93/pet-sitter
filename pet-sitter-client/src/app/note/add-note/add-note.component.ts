@@ -4,13 +4,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { NoteService } from '../note.service';
 import { ImageUploadComponent } from '../../photo/image-upload/image-upload.component';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
-  selector: 'app-add-note',
-  standalone: true,
-  imports: [MatInputModule, ReactiveFormsModule, MatButtonModule, ImageUploadComponent],
-  templateUrl: './add-note.component.html',
-  styleUrl: './add-note.component.scss'
+    selector: 'app-add-note',
+    standalone: true,
+    templateUrl: './add-note.component.html',
+    styleUrl: './add-note.component.scss',
+    imports: [MatInputModule, ReactiveFormsModule, MatButtonModule, ImageUploadComponent, MatCardModule]
 })
 export class AddNoteComponent {
   noteForm = this.fb.nonNullable.group({
