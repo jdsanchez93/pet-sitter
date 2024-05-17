@@ -1,6 +1,13 @@
-<div>
-    <button mat-button (click)="fileInput.click()" type="button">Choose File</button>
-    <input hidden #fileInput type="file" id="file" (change)="handleFileInput($event)">
-</div>
+<div class="spaced-grid">
+    <div>
+        <button mat-stroked-button (click)="fileInput.click()" type="button">
+            <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="image"></mat-icon>
+            Add Image
+        </button>
+        <input hidden #fileInput type="file" id="file" (change)="handleFileInput($event)">
+    </div>
 
-<img [src]="this.preview" class="image-container">
+    @if (this.preview != null) {
+    <img [src]="this.preview" class="image-container">
+    }
+</div>
