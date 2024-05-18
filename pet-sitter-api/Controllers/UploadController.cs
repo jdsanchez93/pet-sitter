@@ -1,6 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using pet_sitter_api.Entities;
 
 namespace pet_sitter_api.Controllers;
 
@@ -30,17 +28,15 @@ public class UploadController : ControllerBase
             var apiGatewayResponse = await httpResponse.Content.ReadFromJsonAsync<ApiGatewayResponse>();
             return Created("/api/Upload", apiGatewayResponse);
         }
-        catch (System.Exception e)
+        catch (Exception e)
         {
             _logger.LogError(e, "Post");
             return StatusCode(StatusCodes.Status500InternalServerError);
         }
     }
 
-
     public class UploadData
     {
-        public int ItemId { get; set; }
         public string? ItemType { get; set; }
         public string? Extension { get; set; }
     }
