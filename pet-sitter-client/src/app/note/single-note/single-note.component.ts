@@ -25,7 +25,7 @@ export class SingleNoteComponent implements OnInit {
     this.route.paramMap
       .pipe(
         switchMap((params: ParamMap) => {
-          var noteId = Number(params.get('id'));
+          let noteId = Number(params.get('id'));
           return this.noteService.getNote(noteId);
         }),
         tap(x => this.note = x)
