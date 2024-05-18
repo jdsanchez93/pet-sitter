@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { PhotoService } from '../photo.service';
-import { of, switchMap, tap } from 'rxjs';
+import { Observable, map, of, switchMap, zip } from 'rxjs';
 
 @Component({
   selector: 'app-image-upload',
@@ -14,7 +14,6 @@ import { of, switchMap, tap } from 'rxjs';
 export class ImageUploadComponent {
   fileToUpload: File | null = null;
   preview: any;
-  s3ObjectName: string = '';
 
   constructor(private photoService: PhotoService) { }
 
@@ -23,7 +22,7 @@ export class ImageUploadComponent {
     if (fileList && fileList.length > 0) {
       this.fileToUpload = fileList[0];
 
-      var reader: FileReader = new FileReader();
+      let reader: FileReader = new FileReader();
 
       reader.onloadend = (e) => {
         this.preview = reader.result as string;
@@ -33,19 +32,18 @@ export class ImageUploadComponent {
     }
   }
 
-  uploadPhoto() {
-    if (this.fileToUpload != null) {
-      const itemType = 'note';
-      const extension = '.' + this.fileToUpload.name.split('.').pop();
-      this.photoService.callApiGateway({ itemType, extension })
-        .pipe(
-          tap(x => this.s3ObjectName = x.s3ObjectName),
-          tap(x => console.log('api gateway response', x)),
-          switchMap(x => this.photoService.uploadImage(x.uploadUrl, this.fileToUpload!)),
-          tap(x => console.log('upload response', x))
-        )
-        .subscribe();
+  uploadPhoto(): Observable<{ s3ObjectName: string | undefined }> {
+    if (this.fileToUpload == null) {
+      return of({ s3ObjectName: undefined })
     }
-    return of({});
+
+    const itemType = 'note';
+    const extension = '.' + this.fileToUpload.name.split('.').pop();
+    const apiGatewayResponse$ = this.photoService.callApiGateway({ itemType, extension });
+
+    return apiGatewayResponse$.pipe(
+      switchMap(({ s3ObjectName, uploadUrl }) => zip([s3ObjectName], this.photoService.uploadImage(uploadUrl, this.fileToUpload!))),
+      map(([s3ObjectName]) => ({ s3ObjectName }))
+    )
   }
 }
