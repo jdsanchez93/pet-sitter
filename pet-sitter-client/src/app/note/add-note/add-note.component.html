@@ -1,3 +1,7 @@
+@if (isLoading) {
+<mat-spinner></mat-spinner>
+}
+@else {
 <form class="example-form" [formGroup]="noteForm" (ngSubmit)="onSubmit()">
 
     <mat-card class="form-card">
@@ -26,3 +30,4 @@
 
     </mat-card>
 </form>
+}
