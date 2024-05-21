@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using pet_sitter_api.Entities;
@@ -69,6 +70,25 @@ public class NoteController : ControllerBase
         catch (Exception e)
         {
             _logger.LogError(e, "GetNotes");
+            return StatusCode(StatusCodes.Status500InternalServerError);
+        }
+    }
+
+    [HttpPatch("{id}")]
+    public IActionResult Patch([FromRoute] int id, [FromBody] JsonPatchDocument<Note> patchDoc)
+    {
+        try
+        {
+            var i = _context.Notes.Find(id);
+            if (i == null)
+                return NotFound();
+            patchDoc.ApplyTo(i);
+            _context.SaveChanges();
+            return NoContent();
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "Patch");
             return StatusCode(StatusCodes.Status500InternalServerError);
         }
     }
