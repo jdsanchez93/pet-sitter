@@ -21,5 +21,16 @@ export class NoteService {
   public getNotes(): Observable<Note[]> {
     return this.http.get<Note[]>('api/Note/GetNotes');
   }
+
+  public patchNote(noteId: number, partialNote: Partial<Note>): Observable<any> {
+    const patchObj = Object.keys(partialNote).map(key =>
+    ({
+      'path': `/${key}`,
+      'op': 'replace',
+      'value': (partialNote as any)[key]
+    })
+    );
+    return this.http.patch(`api/Note/${noteId}`, patchObj);
+  }
 }
 
