@@ -40,8 +40,7 @@ export class AddNoteComponent implements OnInit {
         }),
         tap(x => this.note = x)
       )
-      .subscribe()
-
+      .subscribe();
   }
 
   onSubmit() {
