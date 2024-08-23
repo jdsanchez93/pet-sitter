@@ -11,13 +11,13 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ActivatedRoute, ParamMap, Router, RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-add-note',
+  selector: 'app-add-edit-note',
   standalone: true,
-  templateUrl: './add-note.component.html',
-  styleUrl: './add-note.component.scss',
-  imports: [MatInputModule, ReactiveFormsModule, MatButtonModule, ImageUploadComponent, MatCardModule, MatProgressSpinnerModule, RouterModule]
+  templateUrl: './add-edit-note.component.html',
+  styleUrl: './add-edit-note.component.scss',
+  imports: [MatInputModule, ReactiveFormsModule, MatButtonModule, ImageUploadComponent, MatCardModule, MatProgressSpinnerModule, RouterModule],
 })
-export class AddNoteComponent implements OnInit {
+export class AddEditNoteComponent implements OnInit{
   noteForm = this.fb.nonNullable.group({
     title: new FormControl('', { nonNullable: true, validators: Validators.required }),
     description: new FormControl('', { nonNullable: true, validators: Validators.required }),
