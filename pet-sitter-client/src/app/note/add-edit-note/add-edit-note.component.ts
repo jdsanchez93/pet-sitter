@@ -27,6 +27,8 @@ export class AddEditNoteComponent implements OnInit{
 
   noteId?: number;
 
+  title!: string;
+
   @ViewChild(ImageUploadComponent) imageUploadComponent!: ImageUploadComponent;
 
   constructor(private noteService: NoteService, private fb: FormBuilder, private router: Router, private route: ActivatedRoute) { }
@@ -35,11 +37,14 @@ export class AddEditNoteComponent implements OnInit{
     this.noteId = this.route.snapshot.params['id'];
 
     if (this.noteId) {
+      this.title = 'Edit note';
       this.noteService.getNote(this.noteId)
         .pipe(
           tap(x => this.noteForm.patchValue({ ...x }))
         )
         .subscribe();
+    } else {
+      this.title = 'Add note';
     }
   }
 
