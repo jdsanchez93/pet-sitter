@@ -2,6 +2,9 @@
     <mat-card-header>
         <div mat-card-avatar class="example-header-image"></div>
         <mat-card-title>{{note.title}}</mat-card-title>
+        <mat-card-subtitle>
+            {{note.noteDate + 'Z' | date: 'MMM dd, y, hh:mm:ss a' }}
+        </mat-card-subtitle>
     </mat-card-header>
 
     @if (note.photos.length > 0) {
