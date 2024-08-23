@@ -25,57 +25,54 @@ export class AddNoteComponent implements OnInit {
 
   isLoading: boolean = false;
 
-  @Input({ required: false }) note: Note | undefined;
+  noteId?: number;
 
   @ViewChild(ImageUploadComponent) imageUploadComponent!: ImageUploadComponent;
 
   constructor(private noteService: NoteService, private fb: FormBuilder, private router: Router, private route: ActivatedRoute) { }
-  
+
   ngOnInit(): void {
-    this.route.paramMap
-      .pipe(
-        switchMap((params: ParamMap) => {
-          let noteId = Number(params.get('id'));
-          return this.noteService.getNote(noteId);
-        }),
-        tap(x => this.note = x)
-      )
-      .subscribe();
+    this.noteId = this.route.snapshot.params['id'];
+
+    if (this.noteId) {
+      this.noteService.getNote(this.noteId)
+        .pipe(
+          tap(x => this.noteForm.patchValue({ ...x }))
+        )
+        .subscribe();
+    }
   }
 
   onSubmit() {
     if (this.isUpdatingExistingNote()) {
-      console.log('updatenote')
-      // this.updateNote();
+      this.updateNote();
     } else {
-      console.log('createnote')
-      // this.createNote();
+      this.createNote();
     }
   }
 
   private isUpdatingExistingNote(): boolean {
-    console.log('isUpdatingExistingNote', this.note?.noteId);
-    if (this.note?.noteId) {
-      return true;
-    }
-    return false;
+    return (this.noteId !== undefined);
   }
 
   private createNote() {
     this.isLoading = true;
     let n: Partial<Note> = this.noteForm.value;
-    this.imageUploadComponent.uploadPhoto().pipe(
-      switchMap(({ s3ObjectName }) => {
-        if (s3ObjectName) {
-          n.photos = [{ photoId: 0, isDelete: false, s3Key: s3ObjectName }];
-        }
-        return this.noteService.createNote(n);
-      }),
-      tap(note => this.router.navigate(['/note', note.noteId]))
-    ).subscribe();
+    this.imageUploadComponent.uploadPhoto()
+      .pipe(
+        switchMap(({ s3ObjectName }) => {
+          if (s3ObjectName) {
+            n.photos = [{ photoId: 0, isDelete: false, s3Key: s3ObjectName }];
+          }
+          return this.noteService.createNote(n);
+        }),
+        tap(note => this.router.navigate(['/note', note.noteId]))
+      )
+      .subscribe();
   }
 
   private updateNote() {
-    this.noteService.patchNote(this.note?.noteId!, this.noteForm.value);
+    this.noteService.patchNote(this.noteId!, this.noteForm.value)
+      .subscribe();
   }
 }
